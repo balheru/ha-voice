@@ -1,0 +1,27 @@
+name: ha-voices
+services:
+    wyoming-openwakeword:
+        stdin_open: true
+        tty: true
+        ports:
+            - 10400:10400
+        image: rhasspy/wyoming-openwakeword
+        command: --preload-model 'ok_nabu'
+    wyoming-whisper:
+        stdin_open: true
+        tty: true
+        ports:
+            - 10300:10300
+        volumes:
+            - /path/to/local/data:/data
+        image: rhasspy/wyoming-whisper
+        command: --model tiny-int8 --language en
+    wyoming-piper:
+        stdin_open: true
+        tty: true
+        ports:
+            - 10200:10200
+        volumes:
+            - /path/to/local/data:/data
+        image: rhasspy/wyoming-piper
+        command: --voice en_US-lessac-medium
